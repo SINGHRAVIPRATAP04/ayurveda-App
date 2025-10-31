@@ -1,70 +1,157 @@
-# Getting Started with Create React App
+# AWS Cognito Authentication Setup
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This module handles user authentication for the Ayurveda App using AWS Cognito. It provides a secure authentication flow with features like user registration, login, and token management.
+
+## Features
+
+- User registration and login
+- Email verification
+- Password recovery
+- JWT token management
+- Secure session handling
+- AWS Amplify integration
+- Protected route handling
+
+## Prerequisites
+
+- AWS Account
+- Node.js (v14 or higher)
+- npm or yarn
+- AWS CLI (optional, for configuration)
+
+## AWS Cognito Setup
+
+1. **Create User Pool**
+
+   - Go to AWS Console > Cognito
+   - Create a new User Pool
+   - Configure required attributes
+   - Set up app client
+   - Note down Pool ID and Client ID
+
+2. **Configure AWS Credentials**
+   ```bash
+   aws configure
+   # Enter your AWS Access Key ID
+   # Enter your AWS Secret Access Key
+   # Enter your preferred region
+   ```
+
+## Environment Variables
+
+Create a `.env` file:
+
+```env
+REACT_APP_AWS_REGION=your_aws_region
+REACT_APP_USER_POOL_ID=your_user_pool_id
+REACT_APP_CLIENT_ID=your_client_id
+```
+
+## Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# Build for production
+npm run build
+```
+
+## Project Structure
+
+```
+src/
+├── components/    # Authentication components
+├── config/        # AWS configuration
+├── hooks/        # Custom React hooks
+└── App.js        # Main component
+```
+
+## AWS Amplify Configuration
+
+The project uses AWS Amplify for Cognito integration. Configuration is in `src/index.js`:
+
+```javascript
+import { Amplify } from "aws-amplify";
+
+Amplify.configure({
+  Auth: {
+    region: process.env.REACT_APP_AWS_REGION,
+    userPoolId: process.env.REACT_APP_USER_POOL_ID,
+    userPoolWebClientId: process.env.REACT_APP_CLIENT_ID,
+  },
+});
+```
+
+## Authentication Flow
+
+1. **User Registration**
+
+   - Email and password collection
+   - Email verification
+   - Profile completion
+
+2. **User Login**
+
+   - Credential validation
+   - Token generation
+   - Session management
+
+3. **Token Management**
+   - JWT token storage
+   - Token refresh
+   - Session persistence
+
+## Integration with Main App
+
+1. Configure environment variables
+2. Import authentication components
+3. Implement protected routes
+4. Handle authentication state
+
+## Security Considerations
+
+- Secure token storage
+- HTTPS enforcement
+- Session timeout handling
+- Password policies
+- Rate limiting
 
 ## Available Scripts
 
-In the project directory, you can run:
+- `npm start` - Start development server
+- `npm test` - Run tests
+- `npm run build` - Build for production
 
-### `npm start`
+## Troubleshooting
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Common issues and solutions:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. **Configuration Errors**
 
-### `npm test`
+   - Verify AWS credentials
+   - Check environment variables
+   - Validate User Pool settings
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Token Issues**
 
-### `npm run build`
+   - Clear local storage
+   - Check token expiration
+   - Verify refresh token flow
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **CORS Problems**
+   - Configure Cognito settings
+   - Check API endpoints
+   - Verify domain settings
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Contributing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Fork the repository
+2. Create your feature branch
+3. Install dependencies
+4. Make your changes
+5. Test thoroughly
+6. Create a pull request
